@@ -1,3 +1,3 @@
 class Warehouse < ApplicationRecord
-  belongs_to :location
+  has_many :stations, optional: true
 end
