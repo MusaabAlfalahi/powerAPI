@@ -1,3 +1,3 @@
 class Location < ApplicationRecord
-  has_many :stations, optional: true
+  has_many :stations
 end

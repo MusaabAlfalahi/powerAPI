@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_233122) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_13_234059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_233122) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "power_banks", force: :cascade do |t|
+    t.string "identifier"
+    t.string "status"
+    t.bigint "station_id"
+    t.bigint "warehouse_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_power_banks_on_station_id"
+    t.index ["user_id"], name: "index_power_banks_on_user_id"
+    t.index ["warehouse_id"], name: "index_power_banks_on_warehouse_id"
   end
 
   create_table "stations", force: :cascade do |t|
@@ -49,6 +62,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_233122) do
     t.index ["location_id"], name: "index_warehouses_on_location_id"
   end
 
+  add_foreign_key "power_banks", "stations"
+  add_foreign_key "power_banks", "users"
+  add_foreign_key "power_banks", "warehouses"
   add_foreign_key "stations", "locations"
   add_foreign_key "stations", "warehouses"
   add_foreign_key "warehouses", "locations"
