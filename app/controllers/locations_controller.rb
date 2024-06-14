@@ -1,6 +1,6 @@
 # app/controllers/locations_controller.rb
 class LocationsController < ApplicationController
-  before_action :authorize_user, only: %i[show create update destroy]
+  before_action :authorize_user, only: %i[show create update destroy search]
   before_action :set_location, only: %i[show update destroy]
   before_action :authenticate_user, only: :index
 
@@ -32,6 +32,15 @@ class LocationsController < ApplicationController
 
   def destroy
     @location.destroy
+  end
+
+  def search
+    @locations = if params[:query].present?
+                   Location.where("name LIKE ?", "%#{params[:query]}%").page(params[:page]).per(10)
+                 else
+                   Location.page(params[:page]).per(10)
+                 end
+    render json: @locations
   end
 
   private

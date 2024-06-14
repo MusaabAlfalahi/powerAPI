@@ -1,7 +1,7 @@
 # app/controllers/power_banks_controller.rb
 class PowerBanksController < ApplicationController
-  before_action :authorize_user, only: %i[index show create update destroy assign_to_station assign_to_warehouse]
-  before_action :set_power_bank, only: %i[show update destroy take return assign_to_station assign_to_warehouse]
+  before_action :authorize_user, only: %i[index show create update destroy assign_to_station assign_to_warehouse assign_to_user search]
+  before_action :set_power_bank, only: %i[show update destroy take return assign_to_station assign_to_warehouse assign_to_user]
   before_action :authenticate_user, only: %i[index_available take return]
 
   def index
@@ -79,6 +79,15 @@ class PowerBanksController < ApplicationController
     else
       render json: @power_bank.errors, status: :unprocessable_content
     end
+  end
+
+  def search
+    @power_banks = if params[:query].present?
+                     PowerBank.where("name LIKE ?", "%#{params[:query]}%").page(params[:page]).per(10)
+                   else
+                     PowerBank.page(params[:page]).per(10)
+                   end
+    render json: @power_banks
   end
 
   private

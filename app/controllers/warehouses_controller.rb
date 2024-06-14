@@ -32,6 +32,15 @@ class WarehousesController < ApplicationController
     @warehouse.destroy
   end
 
+  def search
+    @warehouses = if params[:query].present?
+                    Warehouse.where("name LIKE ?", "%#{params[:query]}%").page(params[:page]).per(10)
+                  else
+                    Warehouse.page(params[:page]).per(10)
+                  end
+    render json: @warehouses
+  end
+
   private
 
   def set_warehouse

@@ -1,5 +1,5 @@
 class StationsController < ApplicationController
-  before_action :authorize_user, only: %i[show create update destroy assign_to_location assign_to_warehouse]
+  before_action :authorize_user, only: %i[show create update destroy assign_to_location assign_to_warehouse search]
   before_action :set_station, only: %i[show update destroy assign_to_location assign_to_warehouse]
   before_action :authenticate_user, only: :index
 
@@ -39,7 +39,7 @@ class StationsController < ApplicationController
     else
       render json: @station.errors, status: :unprocessable_content
     end
-    end
+  end
 
   def assign_to_warehouse
     if @station.update(warehouse_id: params[:warehouse_id])
@@ -47,6 +47,15 @@ class StationsController < ApplicationController
     else
       render json: @station.errors, status: :unprocessable_content
     end
+  end
+
+  def search
+    @stations = if params[:query].present?
+                  Station.where("name LIKE ?", "%#{params[:query]}%").page(params[:page]).per(10)
+                else
+                  Station.page(params[:page]).per(10)
+                end
+    render json: @stations
   end
 
   private

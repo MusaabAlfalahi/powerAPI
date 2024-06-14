@@ -5,18 +5,21 @@ Rails.application.routes.draw do
   post '/logout', to: 'sessions#destroy'
 
   get '/locations', to: 'locations#index'
+  get '/locations/search', to: 'locations#search'
   get '/locations/:id', to: 'locations#show'
   post '/locations', to: 'locations#create'
   put '/locations/:id', to: 'locations#update'
   delete '/locations/:id', to: 'locations#destroy'
 
   get '/warehouses', to: 'warehouses#index'
+  get '/warehouses/search', to: 'warehouses#search'
   get '/warehouses/:id', to: 'warehouses#show'
   post '/warehouses', to: 'warehouses#create'
   put '/warehouses/:id', to: 'warehouses#update'
   delete '/warehouses/:id', to: 'warehouses#destroy'
 
   get '/stations', to: 'stations#index'
+  get '/stations/search', to: 'stations#search'
   get '/stations/:id', to: 'stations#show'
   post '/stations', to: 'stations#create'
   put '/stations/:id', to: 'stations#update'
@@ -26,6 +29,7 @@ Rails.application.routes.draw do
 
   get '/power_banks', to: 'power_banks#index'
   get '/power_banks/available', to: 'power_banks#index_available'
+  get '/power_banks/search', to: 'power_banks#search'
   get '/power_banks/:id', to: 'power_banks#show'
   post '/power_banks', to: 'power_banks#create'
   put '/power_banks/:id', to: 'power_banks#update'
