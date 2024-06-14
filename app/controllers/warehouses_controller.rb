@@ -1,7 +1,6 @@
 class WarehousesController < ApplicationController
   before_action :authorize_user
   before_action :set_warehouse, only: %i[show update destroy]
-  before_action :authenticate_user, only: :index
 
   def index
     @warehouses = Warehouse.all

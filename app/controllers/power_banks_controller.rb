@@ -1,11 +1,16 @@
 # app/controllers/power_banks_controller.rb
 class PowerBanksController < ApplicationController
-  before_action :authorize_user, only: %i[show create update destroy]
+  before_action :authorize_user, only: %i[index show create update destroy]
   before_action :set_power_bank, only: %i[show update destroy take return]
-  before_action :authenticate_user, only: %i[index take return]
+  before_action :authenticate_user, only: %i[index_available take return]
 
   def index
     @power_banks = PowerBank.all
+    render json: @power_banks
+  end
+
+  def index_available
+    @power_banks = PowerBank.where(status: 'available')
     render json: @power_banks
   end
 
@@ -61,6 +66,6 @@ class PowerBanksController < ApplicationController
   end
 
   def power_bank_params
-    params.require(:power_bank).permit(:identifier, :status, :station_id, :warehouse_id, :user_id)
+    params.require(:power_bank).permit(:name, :status, :station_id, :warehouse_id, :user_id)
   end
 end

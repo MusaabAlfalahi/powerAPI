@@ -25,10 +25,11 @@ Rails.application.routes.draw do
   delete '/stations/:id', to: 'stations#destroy'
 
   get '/power_banks', to: 'power_banks#index'
+  get '/power_banks/available', to: 'power_banks#index_available'
   get '/power_banks/:id', to: 'power_banks#show'
   post '/power_banks', to: 'power_banks#create'
   put '/power_banks/:id', to: 'power_banks#update'
-  put '/power_banks/take/:id', to: 'power_banks#take'
-  put '/power_banks/return/:id', to: 'power_banks#return'
+  put '/power_banks/:id/take', to: 'power_banks#take'
+  put '/power_banks/:id/return', to: 'power_banks#return'
   delete '/power_banks/:id', to: 'power_banks#destroy'
 end
