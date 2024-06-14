@@ -2,7 +2,7 @@
 class PowerBanksController < ApplicationController
   before_action :authorize_user, only: %i[show create update destroy]
   before_action :set_power_bank, only: %i[show update destroy take return]
-  before_action :authenticate_user, only: :index
+  before_action :authenticate_user, only: %i[index take return]
 
   def index
     @power_banks = PowerBank.all

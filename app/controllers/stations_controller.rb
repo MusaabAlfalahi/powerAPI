@@ -1,6 +1,6 @@
 class StationsController < ApplicationController
   before_action :authorize_user, only: %i[show create update destroy]
-  before_action :set_station, only: %i[show update destroy]
+  before_action :set_station, only: %i[show update destroy assign_to_location assign_to_warehouse]
   before_action :authenticate_user, only: :index
 
   def index
@@ -31,6 +31,22 @@ class StationsController < ApplicationController
 
   def destroy
     @station.destroy
+  end
+
+  def assign_to_location
+    if @station.update(location_id: params[:location_id])
+      render json: @station
+    else
+      render json: @station.errors, status: :unprocessable_content
+    end
+    end
+
+  def assign_to_warehouse
+    if @station.update(location_id: params[:warehouse_id])
+      render json: @station
+    else
+      render json: @station.errors, status: :unprocessable_content
+    end
   end
 
   private

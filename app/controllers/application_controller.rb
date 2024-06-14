@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_user
-    unless current_user.isAdmin == "admin"
+    unless current_user && current_user.isAdmin == "admin"
       render json: { error: 'Not Authorized' }, status: :unauthorized
     end
   end

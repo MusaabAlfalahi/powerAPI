@@ -13,3 +13,16 @@ User.create(
   password_confirmation: "password",
   isAdmin: "admin",
 )
+
+Location.create(
+  name: "Amman",
+  address: "Jordan-Amman"
+)
+Location.create(
+  name: "Irbid",
+  address: "Jordan-Irbid"
+)
+Location.create(
+  name: "Aqaba",
+  address: "Jordan-Aqaba"
+)
