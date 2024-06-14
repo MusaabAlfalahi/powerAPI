@@ -1,6 +1,7 @@
 class StationsController < ApplicationController
-  before_action :authorize_user, only: %i[index show create update destroy assign_to_location assign_to_warehouse]
+  before_action :authorize_user, only: %i[show create update destroy assign_to_location assign_to_warehouse]
   before_action :set_station, only: %i[show update destroy assign_to_location assign_to_warehouse]
+  before_action :authenticate_user, only: :index
 
   def index
     @stations = Station.all
