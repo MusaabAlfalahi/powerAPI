@@ -1,7 +1,8 @@
 # app/controllers/locations_controller.rb
 class LocationsController < ApplicationController
-  before_action :authorize_user
+  before_action :authorize_user, only: %i[show create update destroy]
   before_action :set_location, only: %i[show update destroy]
+  before_action :authenticate_user, only: :index
 
   def index
     @locations = Location.all
@@ -41,11 +42,5 @@ class LocationsController < ApplicationController
 
   def location_params
     params.require(:location).permit(:name, :address)
-  end
-
-  def authorize_user
-    unless current_user.isAdmin == "admin"
-      render json: { error: 'Not Authorized' }, status: :unauthorized
-    end
   end
 end

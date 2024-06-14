@@ -1,6 +1,7 @@
 class StationsController < ApplicationController
-  before_action :authorize_user
+  before_action :authorize_user, only: %i[show create update destroy]
   before_action :set_station, only: %i[show update destroy]
+  before_action :authenticate_user, only: :index
 
   def index
     @stations = Station.all
@@ -40,11 +41,5 @@ class StationsController < ApplicationController
 
   def station_params
     params.require(:station).permit(:name, :status, :location_id, :warehouse_id)
-  end
-
-  def authorize_user
-    unless current_user.isAdmin == "admin"
-      render json: { error: 'Not Authorized' }, status: :unauthorized
-    end
   end
 end

@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate_user
   include ActionController::Cookies
 
   private
@@ -12,5 +11,11 @@ class ApplicationController < ActionController::API
 
   def authenticate_user
     render json: { error: 'Not Authorized' }, status: :unauthorized unless current_user
+  end
+
+  def authorize_user
+    unless current_user.isAdmin == "admin"
+      render json: { error: 'Not Authorized' }, status: :unauthorized
+    end
   end
 end

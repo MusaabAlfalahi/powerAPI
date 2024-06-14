@@ -1,6 +1,7 @@
 class WarehousesController < ApplicationController
   before_action :authorize_user
   before_action :set_warehouse, only: %i[show update destroy]
+  before_action :authenticate_user, only: :index
 
   def index
     @warehouses = Warehouse.all
@@ -40,11 +41,5 @@ class WarehousesController < ApplicationController
 
   def warehouse_params
     params.require(:warehouse).permit(:name, :location_id)
-  end
-
-  def authorize_user
-    unless current_user.isAdmin == "admin"
-      render json: { error: 'Not Authorized' }, status: :unauthorized
-    end
   end
 end
