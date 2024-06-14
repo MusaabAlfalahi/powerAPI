@@ -10,7 +10,7 @@ class PowerBanksController < ApplicationController
   end
 
   def index_available
-    @power_banks = PowerBank.where(status: 'available')
+    @power_banks = PowerBank.where(status: 'available').where.not(station_id: nil)
     render json: @power_banks
   end
 
@@ -56,18 +56,18 @@ class PowerBanksController < ApplicationController
   end
 
   def assign_to_station
-    if @station.update(station_id: params[:station_id])
-      render json: @station
+    if @power_bank.update(station_id: params[:station_id])
+      render json: @power_bank
     else
-      render json: @station.errors, status: :unprocessable_content
+      render json: @power_bank.errors, status: :unprocessable_content
     end
   end
 
   def assign_to_warehouse
-    if @station.update(warehouse_id: params[:warehouse_id])
-      render json: @station
+    if @power_bank.update(warehouse_id: params[:warehouse_id])
+      render json: @power_bank
     else
-      render json: @station.errors, status: :unprocessable_content
+      render json: @power_bank.errors, status: :unprocessable_content
     end
   end
 
