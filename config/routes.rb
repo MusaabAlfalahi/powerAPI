@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   post '/sign_up', to: 'user#create'
-
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#destroy'
 
@@ -35,8 +34,8 @@ Rails.application.routes.draw do
   put '/power_banks/:id', to: 'power_banks#update'
   put '/power_banks/:id/take', to: 'power_banks#take'
   put '/power_banks/:id/return', to: 'power_banks#return'
-  put '/power_banks/:id/assign_to_station', to: 'power_banks#assign_to_station'
-  put '/power_banks/:id/assign_to_warehouse', to: 'power_banks#assign_to_warehouse'
-  put '/power_banks/:id/assign_to_user', to: 'power_banks#assign_to_user'
+  put '/power_banks/:id/station', to: 'power_banks#assign_to_station'
+  put '/power_banks/:id/warehouse', to: 'power_banks#assign_to_warehouse'
+  put '/power_banks/:id/user', to: 'power_banks#assign_to_user'
   delete '/power_banks/:id', to: 'power_banks#destroy'
 end
