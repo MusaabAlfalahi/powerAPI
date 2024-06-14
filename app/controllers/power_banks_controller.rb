@@ -5,12 +5,14 @@ class PowerBanksController < ApplicationController
   before_action :authenticate_user, only: %i[index_available take return]
 
   def index
-    @power_banks = PowerBank.all
+    @power_banks = PowerBank.order(:id).page(params[:page]).per(10)
     render json: @power_banks
   end
 
   def index_available
-    @power_banks = PowerBank.where(status: 'available').where.not(station_id: nil)
+    @power_banks = PowerBank
+                     .where(status: 'available').where.not(station_id: nil)
+                     .order(:id).page(params[:page]).per(10)
     render json: @power_banks
   end
 
@@ -65,6 +67,14 @@ class PowerBanksController < ApplicationController
 
   def assign_to_warehouse
     if @power_bank.update(warehouse_id: params[:warehouse_id])
+      render json: @power_bank
+    else
+      render json: @power_bank.errors, status: :unprocessable_content
+    end
+  end
+
+  def assign_to_user
+    if @power_bank.update(user_id: params[:user_id])
       render json: @power_bank
     else
       render json: @power_bank.errors, status: :unprocessable_content
