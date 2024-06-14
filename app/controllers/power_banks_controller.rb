@@ -1,7 +1,7 @@
 # app/controllers/power_banks_controller.rb
 class PowerBanksController < ApplicationController
-  before_action :authorize_user, only: %i[index show create update destroy]
-  before_action :set_power_bank, only: %i[show update destroy take return]
+  before_action :authorize_user, only: %i[index show create update destroy assign_to_station assign_to_warehouse]
+  before_action :set_power_bank, only: %i[show update destroy take return assign_to_station assign_to_warehouse]
   before_action :authenticate_user, only: %i[index_available take return]
 
   def index
@@ -40,10 +40,6 @@ class PowerBanksController < ApplicationController
   end
 
   def take
-    if @power_bank.status == 'in_use'
-      render json: 'power bank already in use', status: 400
-    end
-
     if @power_bank.update(user: current_user, status: 'in_use')
       render json: @power_bank
     else
@@ -56,6 +52,22 @@ class PowerBanksController < ApplicationController
       render json: @power_bank
     else
       render json: @power_bank.errors, status: :unprocessable_content
+    end
+  end
+
+  def assign_to_station
+    if @station.update(station_id: params[:station_id])
+      render json: @station
+    else
+      render json: @station.errors, status: :unprocessable_content
+    end
+  end
+
+  def assign_to_warehouse
+    if @station.update(warehouse_id: params[:warehouse_id])
+      render json: @station
+    else
+      render json: @station.errors, status: :unprocessable_content
     end
   end
 

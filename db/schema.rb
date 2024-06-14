@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_14_133031) do
 
   create_table "power_banks", force: :cascade do |t|
     t.string "name"
-    t.string "status"
+    t.string "status", default: "available"
     t.bigint "station_id"
     t.bigint "warehouse_id"
     t.bigint "user_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_14_133031) do
 
   create_table "stations", force: :cascade do |t|
     t.string "name"
-    t.string "status"
+    t.string "status", default: "offline"
     t.bigint "location_id"
     t.bigint "warehouse_id"
     t.datetime "created_at", null: false
