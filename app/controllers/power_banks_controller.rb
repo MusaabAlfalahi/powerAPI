@@ -11,7 +11,7 @@ class PowerBanksController < ApplicationController
 
   def index_available
     @power_banks = PowerBank
-                     .where(status: 'available').where.not(station_id: nil)
+                     .where(status: 'available').where(station_id: nil)
                      .order(:id).page(params[:page]).per(10)
     render json: @power_banks
   end
@@ -58,6 +58,10 @@ class PowerBanksController < ApplicationController
   end
 
   def assign_to_station
+    @station = Station.find(params[:station_id])
+    if @station.power_banks.count >= 10
+      return render json: { error: 'Power bank limit for this station reached' }, status: 400
+    end
     if @power_bank.update(station_id: params[:station_id])
       render json: @power_bank
     else

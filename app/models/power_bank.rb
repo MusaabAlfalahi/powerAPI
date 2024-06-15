@@ -2,8 +2,9 @@ class PowerBank < ApplicationRecord
   belongs_to :station, optional: true
   belongs_to :warehouse, optional: true
   belongs_to :user, optional: true
-  enum status: { available: "available", in_use: "in_use" }, _default: "available"
+  enum status: { available: "available", in_use: "in_use" }
 
+  validates :name, presence: true
   after_initialize :set_default_status, if: :new_record?
 
   private

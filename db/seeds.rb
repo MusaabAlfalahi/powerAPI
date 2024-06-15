@@ -7,22 +7,27 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-User.create(
-  email: "mosaab@email.com",
-  password: "password",
-  password_confirmation: "password",
-  isAdmin: "admin",
-)
-
-Location.create(
-  name: "Amman",
-  address: "Jordan-Amman"
-)
-Location.create(
-  name: "Irbid",
-  address: "Jordan-Irbid"
-)
-Location.create(
-  name: "Aqaba",
-  address: "Jordan-Aqaba"
-)
+# User.create(
+#   email: "mosaab@email.com",
+#   password: "password",
+#   password_confirmation: "password",
+#   isAdmin: "admin",
+# )
+#
+# Location.create(
+#   name: "Amman",
+#   address: "Jordan-Amman"
+# )
+# Location.create(
+#   name: "Irbid",
+#   address: "Jordan-Irbid"
+# )
+# Location.create(
+#   name: "Aqaba",
+#   address: "Jordan-Aqaba"
+# )
+10.times do |i|
+  PowerBank.create(
+    name: "power_bank#{i}",
+  )
+end

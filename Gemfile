@@ -48,3 +48,4 @@ end
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'kaminari'
 gem 'rspec-rails'
+gem 'factory_bot_rails'
