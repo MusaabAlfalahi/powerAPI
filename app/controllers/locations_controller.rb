@@ -2,8 +2,6 @@
 class LocationsController < ApplicationController
   before_action :authorize_user, only: %i[show create update destroy search]
   before_action :set_location, only: %i[show update destroy]
-  before_action :authenticate_user, only: :index
-
   def index
     @locations = Location.all
     render json: @locations

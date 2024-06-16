@@ -2,7 +2,6 @@
 class PowerBanksController < ApplicationController
   before_action :authorize_user, only: %i[index show create update destroy assign_to_station assign_to_warehouse assign_to_user search]
   before_action :set_power_bank, only: %i[show update destroy take return assign_to_station assign_to_warehouse assign_to_user]
-  before_action :authenticate_user, only: %i[index_available take return]
 
   def index
     @power_banks = PowerBank.order(:id).page(params[:page]).per(10)
@@ -10,6 +9,7 @@ class PowerBanksController < ApplicationController
   end
 
   def index_available
+    puts @current_user
     @power_banks = PowerBank
                      .where(status: 'available').where(station_id: nil)
                      .order(:id).page(params[:page]).per(10)
