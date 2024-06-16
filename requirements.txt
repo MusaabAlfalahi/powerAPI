@@ -1,0 +1,35 @@
+Create a Rails backend API to manage Power Banks and their distribution across various locations, stations, and warehouses.
+Requirements
+CRUD Operations:
+Implement CRUD operations for the following entities:
+Power Banks: Power Banks can be located in stations, warehouses, or assigned to users.
+Stations:
+Stations can be placed in locations or warehouses and can contain up to 10 Power Banks.
+Stations have a status field indicating whether they are online or offline.
+Locations: Locations can contain multiple stations.
+Warehouses: Warehouses contain stations and Power Banks.
+User Roles:
+Admin User:
+Can create warehouses, stations, users, and power banks.
+Can assign Power Banks to stations, warehouses, or users.
+Normal User:
+Can view lists of locations and stations.
+Can view available Power Banks in stations.
+Can take a Power Bank from a station and return it.
+Database Configuration:
+Utilize PostgreSQL or SQLite as the database.
+Authentication and Authorization:
+Implement authentication for users.
+Authorize actions based on user roles.
+
+
+Testing:
+Write unit tests for models and controllers.
+Test CRUD operations.
+Test user actions and role-based access.
+Bonus:
+Implement validations and error handling.
+Add pagination for Power Banks listing.
+Include search functionality.
+Deploy the project using your preferred platform.
+Implement a simple front-end using a framework of your choice.
